@@ -1,0 +1,121 @@
+
+\documentclass{article}
+\usepackage{titletoc}
+
+\newcommand*{\template}{../dding_template}
+\input{\template/tex_packages/tex_packages_general.tex}
+\input{\template/tex_macros/tex_macros_general.tex}
+
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=20mm,
+    top=20mm,
+}
+
+\usepackage{appendix}
+
+% Definition of \maketitle
+\makeatletter         
+\def\@maketitle{
+    \raggedleft
+    \includegraphics[width = 20mm]{GIST_Logo.jpg}\\[5ex]
+    \begin{center}
+        {\Huge \bfseries \@title }\\[4ex] 
+        {\Large  \@author}\\[4ex] 
+        \@date\\[8ex]
+    \end{center}
+}
+\makeatother
+
+\dottedcontents{section}[2em]{\bfseries}{1.5em}{1pc}
+\dottedcontents{subsection}[3em]{}{1.7em}{1pc}
+
+% \newtheorem{remark}{Remark}[section]
+% \newtheorem{assum}{Assumption}[section]
+% \newtheorem{lem}{Lemma}[section]
+% \newtheorem{theorem}{Theorem}[section]
+% \newtheorem{prop}{Property}[section]
+% \theoremstyle{definition}
+% \newtheorem{definition}{Definition}[section]
+
+% ========================================
+\newcommand*{\bdx}{\mv{x}} % bold x
+\newcommand*{\bdy}{\mv{u}} % bold u
+\newcommand*{\bdz}{\mv{z}} % bold z
+\newcommand*{\bdq}{\mv{q}} % bold q
+
+\newcommand*{\bdf}{\mv{f}} % bold f
+
+\newcommand*{\tpfpx}{\pptfrac{\bdf}{\bdx}} % partial f / partial x
+\newcommand*{\pfpx}{\ppfrac{\bdf}{\bdx}} % partial f / partial x
+% ========================================
+
+% \bibliography{\template/refs.bib}
+
+\title{
+    Constrained Deep Reinforcement Learning with Lagrangian Theory
+}
+
+\author{
+    Minseok Seo
+    \thanks{Myeongseok Ryu and Kyunghwan Choi are with the School of Mechanical and Robotics Engineering, Gwangju Institute of Science and Technology, 61005 Gwangju, Republic of Korea {\tt\small dding\_98@gm.gist.ac.kr, khchoi@gist.ac.kr}}%
+    ,
+    Myeongseok Ryu
+    \footnotemark[1]%
+    ,
+    Kyunghwan Choi
+    \footnotemark[1]
+}
+
+\date{
+    % 20\textsuperscript{th} March 2025
+    \today
+    \\
+    Version 0.0
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    Blahblah.
+\end{abstract}
+
+\tableofcontents
+
+% ========================================
+%         INTRODUCTION
+% ========================================
+\input{chapters/introduction.tex}
+
+% ========================================
+%         NOTATIONS AND PRELIMINARIES
+% ========================================
+\input{chapters/preliminaries.tex}
+
+% ========================================
+%         REVIEW OF CONTRACTION THEORY
+% ========================================
+\input{chapters/contraction.tex}
+
+% ========================================
+%         Conclusion
+% ========================================
+\input{chapters/conclusion.tex}
+
+% ========================================
+%         Appendix
+% ========================================
+\begin{appendices}
+% \section{Notable Lemmas}
+\end{appendices}
+
+\bibliographystyle{ieeetr}
+\bibliography{\template/refs, local_refs}
+
+% \printbibliography
+
+\end{document}

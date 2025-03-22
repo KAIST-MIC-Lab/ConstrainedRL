@@ -1,93 +1,118 @@
-# Constrained RL
+# Research Template for MIC Lab
 
-
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.com/dding_friends/publications/constrained-rl.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.com/dding_friends/publications/constrained-rl/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
+This project is highly inspired by the work of LMRES Lab, Hochschule München.
+Thank you very much my dear friend, Niklas Monzen, for your kind sharing and support.
 
 ## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+ 
+The objectives of this research template are as follows:
+- Save time to start numerical validation and writing.
+- Every author in our lab uses same notations and symbols. (defined in [Template](https://gitlab.com/dding_friends/dding_template).)
+- 
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## Tables of Contents
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+```
+. (may differ;)
+├── README.md                   // you are here
+├── conference_template.tex     // template of conf.
+├── dding_template              // pre-defined template
+│   ├── tex_macros                 see below 
+│   ├── tex_packages            
+│   └── tex_symbol              
+├── figures                     // general figures
+├── public                      // do not touch
+├── references.bib              // bibtex file
+└── src                         // source code
+    ├── script_simulation       // script sim. example
+    │   ├── figures             // simulation figures
+    │   └── main.m              // main function example
+    └── simulink_simulation     // simulink sim. example
+        ├── figures             // simulation figures
+        ├── main.slx            // main simulink example
+        ├── main_slx.m          // main script example
+        └── sim_result          // simulation results
+```
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## How to start
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+> If you have questions, please, please, let the author knows.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Download this remote repository on your local device.
+```
+git clone https://gitlab.com/dding_friends/dding_research
+```
+Initialize submodule to download [Template](https://gitlab.com/dding_friends/dding_template) repository.
+> This command will download very recent version of [Template](https://gitlab.com/dding_friends/dding_template)
+```
+git submodule init
+git submodule update
+```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+I provide you the keywords that you can google what you need for what you want to do.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+| Keywords 	    | Descriptions 	|
+|---------	    |--------------	|
+| branch       	| Want to      	|
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+<!-- 
+Talbe generator
+https://www.tablesgenerator.com/markdown_tables
+https://insight.infograb.net/blog/2025/01/22/gitlab-wiki/
+-->
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## Example research simulation and manuscript
+
+> This simulation in `./src ` provides simple feedback control example.
+> Please, read `src/script_simulation/main.m` and `src/simulink_simulation/main_slx.m` for script and Simulink simulations, respectively.
+> When you run those scripts, the results and figures shall be saved in the directories named `results` and `figures` (of course, you need to check setting in the scripts.).
+
+Consider following control-affine system represented as
+$$
+    \dot {\boldsymbol{x}} = \boldsymbol{A}\boldsymbol{x} + \boldsymbol{B}u
+$$
+where $\boldsymbol{x}=[x_1;x_2]\in\mathbb{R}^2$ denotes state variables, $u\in\mathbb{R}$ denotes control input variables, and $\boldsymbol{A}=[0,1;-2,-3]\in\mathbb{R}^{2\times2}$ and $\boldsymbol{B}=[0;1]^\top\in\mathbb{R}^{2\times1}$ denote system and input matrices, respectively.
+The initial condition are $\boldsymbol x\vert_{t=0} = [0;0]^\top$ and $u\vert_{t=0} = 0^\top$.
+
+Suppose that we have smooth reference trajectory of $\boldsymbol{x}$ as follows:
+$$
+    \boldsymbol{r} 
+    = 
+    \begin{bmatrix}
+        r_1 \\
+        r_2
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \sin(t)\\
+        \cos(t)
+    \end{bmatrix}
+    \in\mathbb{R}^2
+$$
+A feedback control law can be designed as follows:
+$$
+    \boldsymbol{u} = -\boldsymbol{K}\boldsymbol{e}
+$$
+where $\boldsymbol{e}\triangleq \boldsymbol{x}-\boldsymbol{r}$ denotes tracking error and $\boldsymbol{K}=\text{diag}([-2,-3])\in\mathbb{R}^{2\times 2}$ denotes control gain matrix.
+
+Then the simulation results are plotted like below.
+
+<img src="src/script_simulation/figures/9-Feb-2025_22-32-23/Fig1.png" width="350">
+<img src="src/script_simulation/figures/9-Feb-2025_22-32-23/Fig2.png" width="350">
+<img src="src/script_simulation/figures/9-Feb-2025_22-32-23/Fig3.png" width="350">
+<img src="src/script_simulation/figures/9-Feb-2025_22-32-23/Fig4.png" width="350">
+
+## Contribution guidelines
+
+Please, keep in mind the objectives of this template written in this document.
+If what you want to add or adjust is on personal purpose, please, modify in your repository not in this template directly.
+Please contact the author before your contribution.
+All contributions are welcome.
+
+## Authors
+
+- Ryu Myeongseok [@DDingR](https://gitlab.com/DDingR)
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
