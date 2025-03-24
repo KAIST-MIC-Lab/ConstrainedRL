@@ -1,35 +1,46 @@
 
 \section{Notations and Preliminaries}
 
-The following notations are used throughout this document:
-\begin{itemize}
-    \item $:=$ denotes \textit{defined as}.
-    \item $(\cdot)^\top$ denotes the transpose of a matrix or a vector.
-    \item $\bdx:=[x_i]_{i\in\{1,\cdots,n\}}\in\R^n$ denotes the state vector.
-    \item $\mm A:=[a_{ij}]_{i,j\in\{1,\cdots,n\}}\in\R^{n\times n}$ denotes a matrix.
-    \item $\lambda_{i}(\mm A),\ i\in\{\max,\min\}$ denotes the maximum and minimum singular value of $\mm A$, respectively.
-    \item $\mm I_n$ denotes the identity matrix of size $n$ and $\mm 0_{n\times m}$ denotes the zero matrix of size $n\times m$.
-    \item $\sym$ denotes the symmetric part of a matrix, \ie $\sym(\mm A):=\mm A+\mm A^\top$ \cite{Tsukamoto:2021ac}.
-\end{itemize}
+An overview of Constrained Markov Decision Processes (CMDP) can be found in this book \cite{Altman:2021}.
 
-We introduce the following lemmas.
+\subsection{Constrained Markov Decision Processes}
 
-\begin{lem}[Comparison Lemma]
-	Suppose that a continuously differentiable function $f:\R^n\to\R$ satisfies the following inequality:
-	\begin{equation}
-		\ddtt f(t)\le -a f(t)+ b, \quad \forall t\in\R_{\ge 0}
-		,
-	\end{equation}
-	where $a,b>0$.
-	Then, the following inequality holds:
-	\begin{equation}
-		f(t)\le -af(0)e^{-at} + \tfrac{b}{a}(1-e^{-at}), \quad \forall t\in\R_{\ge 0}
-	\end{equation}
-	and remains in a compact set $f(t)\in\{\norm{f(t)} \mid \norm{f(0)}\le \tfrac{b}{a}\}$.
-	\label{lem:comparison}
-\end{lem}
+The constrained Markov decision process (CMDP), $\mathcal{M} = \langle \mathcal{S}, \mathcal{A}, \mathcal{P}, r, c \rangle$, is to maximize the expected return of rewards while satisfying the constraint on the expected return of costs:
+\begin{equation}
+	\max_\pi J(\pi) 
+	= \mathbb{E}_{\tau \sim \pi} \left\{\sum^\infty_{t = 0} \gamma^t r_t\right\} 
+	\quad \text{s.t. } 
+	C(\pi) = \mathbb{E}_{\tau \sim \pi} \left\{\sum^\infty_{t = 0} \gamma^t_c c_t \leq d \right\}
+\end{equation}
+where $\mathcal{S}$ and $\mathcal{A}$ are state and action space, $\pi$ is the stationary policy\footnotemark in stationary policy set $\Pi$, $\mathcal{P}$ is the environment transition probability.
+\footnotetext{
+\begin{enumerate}
+    \item In CMDP, stationary policies are used to ensure convergence and for mathematical convenience.
+    \item A stationary policy selects actions based only on the current state, without changing over time, and chooses actions according to the same probability distribution for the same state. Please refer to the book \cite{Altman:2021} for more details.
+\end{enumerate}
+}
+$r, c: \mathcal{S} \times \mathcal{A} \times \mathcal{S} \rightarrow \mathbb{R}$ are the reward and cost functions, respectively,
+and $\gamma, \gamma_C$ are their discounted factors, $\tau = \{s_0, a_0, s_1, a_1, \cdots\}$ is the trajectory under policy $\pi$ starting from an initial state distribution $\rho$.
+The feasible policy set is defined as follows, where $d_i \in \mathbb{R}$:
+\begin{equation}
+	\Pi_{C} = \left\{ \pi \in \Pi \mid \forall i, \mathcal{J}_{C_{i}}(\pi) \leq d_{i} \right\}
+\end{equation}
+In the definition of a CMDP, constraints are typically formulated in a cumulative or probabilistic form.
+However, in real-world applications, many critical constraints must be satisfied instantaneously and deterministically.
 
-\begin{proof}
-	This is a simple special case of the comparison lemma \cite[pp. 102-103]{Khalil:2002aa}.
-	See \cite[pp. 659-660]{Khalil:2002aa}.
-\end{proof}
+\subsection{State-wise Constrained Markov Decision Process}
+In this research, we are specifically interested in a special type of CMDP where the safety specification is to persistently satisfy a hard cost constraint at every step, which is called State-wise Constrained Markov Decision Process (SCMDP).
+SCMDP requires the cost for every state-action transition satisfies a hard constraint.
+The set of feasible stationary policies for SCMDP is defined as follows:
+\begin{equation}
+	\bar{\Pi}_{C} = 
+	\left\{ 
+		\pi \in \Pi \mid \forall (s_{t}, a_{t}, s_{t+1}) \sim \tau, \ 
+		\forall i, \ C_{i}(s_{t}, a_{t}, s_{t+1}) \leq w_{i} 
+	\right\}
+\end{equation}
+where $\tau \sim \pi$ and $w_i \in \mathbb{R}$.
+Then, the objective for SCMDP is to find a feasible stationary policy from $\bar{\Pi}_C$ that maximizes the performance measure.
+\begin{equation}
+	\max_{\theta} \mathcal{J}(\pi_{\theta}), \quad \text{s.t. } \pi_{\theta} \in \bar{\Pi}_{C}
+\end{equation}

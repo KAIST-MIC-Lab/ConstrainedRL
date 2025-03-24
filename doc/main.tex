@@ -1,20 +1,9 @@
 
 \documentclass{article}
-\usepackage{titletoc}
 
+\def\pub{false} % true for publication, false for draft
 \newcommand*{\template}{../dding_template}
-\input{\template/tex_packages/tex_packages_general.tex}
-\input{\template/tex_macros/tex_macros_general.tex}
-
-\usepackage{geometry}
-\geometry{
-    a4paper,
-    total={170mm,257mm},
-    left=20mm,
-    top=20mm,
-}
-
-\usepackage{appendix}
+\input{\template/preamble/preamble_article.tex}
 
 % Definition of \maketitle
 \makeatletter         
@@ -81,7 +70,12 @@
 \maketitle
 
 \begin{abstract}
-    Blahblah.
+Reinforcement learning (RL) agents need to explore their environments in order to learn optimal policies by trial and error.
+While it is currently typical to train RL agents mostly or entirely in simulation, where safety concerns are minimal.
+However, it is very difficult to accurately describe complex real-world environments using simulations.
+Therefore, efforts to train and validate in real-world environments are continuously ongoing.
+Thus, research on constrained RL has emerged to ensure the stability of agents.
+In this paper, we propose an algorithm that estimates the Lagrangian multiplier at each step to impose appropriate constraints on each state, ensuring stability.
 \end{abstract}
 
 \tableofcontents
@@ -97,7 +91,7 @@
 \input{chapters/preliminaries.tex}
 
 % ========================================
-%         REVIEW OF CONTRACTION THEORY
+%         REVIEW OF STATE-WISE SAFE RL
 % ========================================
 \input{chapters/contraction.tex}
 
