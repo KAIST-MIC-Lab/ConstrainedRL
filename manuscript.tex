@@ -55,11 +55,13 @@
 % The packages are pre-defined in the submodule "Template".
 % If you need more packages, please add them after using pre-defined packages.
 
-\input{dding_template/tex_packages/tex_packages_general.tex}
-\input{dding_template/tex_macros/tex_macros_general.tex}
-% \input{dding_template/tex_symbol/symbols_motor.tex}
-% \input{LMRES_PathDefinitions_Template} % define local path to LMRES Templates
-% \input{\LMRESTEMPLATESPATH/include_preambles/LMRES_Preamble}
+\makeatletter
+\let\NAT@parse\undefined
+\makeatother
+
+\def\pub{false} % true for publication, false for draft
+\newcommand*{\template}{dding_template}
+\input{\template/preamble/preamble_conf.tex}
 
 % ============================================
 %     Preset 4. Additional Corrections
