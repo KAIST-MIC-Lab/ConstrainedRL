@@ -1,59 +1,47 @@
 
 
-\section{Review of State-wise Safe Reinforcement Learning}
+\section{Related Work}
 
-The existing research on state-wise safe RL can be divided into two categories based on whether safety is ensured during training.
-\begin{itemize}
-    \item \textbf{State-wise safety after convergence.} When a policy converges, it ensures state-wise safety. But the policy may be unsafe during training.
-    \item \textbf{State-wise safety during training.} The policy derived from this class of methods always ensures constraint satisfaction, even during training.
-\end{itemize}
-In addition, each category can be further classified into two approaches: hierarchical agents and end-to-end agents.
-In the following sections, we will explore these categories through the lens of these two approaches.
+\subsection{Constrained Markov Decision Process}
 
-\subsection{State-wise Safety After Convergence}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.2\textwidth]{figs/p1.pdf}
-    \caption{State-wise safety after convergence}
-    \label{fig:state-wise-safety-after-convergence}
-\end{figure}
-State-wise safety after convergence refers to methods that have possibl infeasible policies during training and feasible converged stationary policies in the end.
-As shown in \autoref{fig:state-wise-safety-after-convergence}, this class of methods uses soft penalties (typically called safe critic $Q_C(s, a)$) to guide the training of policies.
-The safety critic $Q_C(s, a)$ can be provided by humans or learned from the envrionment.
-This class of methods does not pose hard constraints on the exploration space, therefore the policy learning can be made efficient.
-Nevertheless, the policy may be unsafe during training and the convergence to $\Pi_C$.
-
-\subsubsection{Hierarchical Agent}
-
-\subsubsection{End-to-End Agent}
-
-\subsection{State-wise Safety During Training}
-
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.2\textwidth]{figs/p2.pdf}
-    \caption{State-wise safety during training by constraining policies in a subset of $\bar{\Pi}_C$}
-    \label{fig:state-wise-safety-during-training-constraint}
-\end{figure}
-We denote the policy sequence during training as $\pi_{\theta_1}, \pi_{\theta_2}, \cdots, \pi_{\theta_n}$, where $\theta_i$ represents the policy parameters at the i-th optimization iteration, and n is the total number of iterations.
-State-wise safety during training requires that all intermediate policies satisfy the constraint, i.e., $\pi_{\theta_i} \in \bar{\Pi}_C$ for all $i \leq n$.
-Becuause it requires all intermediate policies during training to be feasible.
-
-As shown in \autoref{fig:state-wise-safety-during-training-constraint}, the first class defines a subset of $\bar{\Pi}_C : \hat{\Pi}_C$ (typically by control barrier functions).
-Whenever the policy goes out of the subset, it will be projected back.
-Therefore the policy is always guaranteed to be safe during training.
-However, $\hat{\Pi}_C$ requires a significant amount of prior knowledge about the environment, which may be lacking in many cases.
-And in general, these methods are conservative than after-convergence methods.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.2\textwidth]{figs/p3.pdf}
-    \caption{State-wise safety during training by progressive safe exploration}
-    \label{fig:state-wise-safety-during-training-progressive}
-\end{figure}
-Second class of methods progressively explores the policy space from a safe initial policy as shown in \autoref{fig:state-wise-safety-during-training-progressive}.
-This class of methods maintains an up-to-date subset of $\bar{\Pi}_C : \hat{\Pi}_C$ by exploring and gathering information.
-The policy updates in $\hat{\Pi}^{i + 1}_C$ only if there is enough information to confirm that the $\hat{\Pi}^{i + 1}_C \subseteq \bar{\Pi}_C$.
-This class of methods requires less prior knowledge than the first class but is more conservative in exploration.
+\subsubsection{Feasible Actor-Critic}
+The Feasible Actor-Critic (FAC) \cite{Haitong:2021} considers state-wise safety constraints by estimating the Lagrangian multiplier through a multi-layer perceptron (MLP).
+In this paper, $v^\pi_C$, called to as the cost value function, is defined as the expected cumulative cost obtained by following the policy $\pi$ from an initial state $s$.
+Given a policy $\pi$, a state $s$ is considered feasible if it satisfies the following inequality.
+\begin{equation}
+    v^\pi_C(s) = 
+    \mathbb{E}_{\tau \sim \pi} \left\{\sum^\infty_{t = 0} \gamma^t_c c_t | s_0 = s \right\} \leq d
+\end{equation}
+The feasible region under the policy $\pi$ is defined as follows.
+\begin{equation}
+    S^\pi_F = \{
+        s | v^\pi_C(s) \leq d
+    \}
+\end{equation}
+The set of initial states is denoted by $\mathcal{I}$.
+Since $\mathcal{I}$ may contain infeasible states, the author considers the intersection of $\mathcal{I}$ and $S_F$, defined as $\mathcal{I}_F = \mathcal{I} \cap S_F$, which represents the set of feasible initial states.
+The state-wise safety constrained is defined to guarantee every state in the feasible initial state set to be safe:
+\begin{equation}
+    v^\pi_C(s) \leq d, \quad \forall s \in \mathcal{I}_F
+\end{equation}
+As a result, the set of feasible policies\footnotemark under state-wise safety constraints is given by:
+\footnotetext{
+    This is different from the feasible policy set in a standard Constrained Markov Decision Process (CMDP).
+    Feasible policy set in CMDP: $\Pi_C \{\pi \mid C(\pi) \leq d\}$
+}
+\begin{equation}
+    \Pi_C = \{
+        \pi \mid v^\pi_C(s) \leq d,
+        \forall s \in \mathcal{I}_F
+    \}
+\end{equation}
+Accordingly, the optimization problem\footnotemark is formulated as follows to ensure that state-wise safety constraints are satisfied.
+\footnotetext{
+    This is different from the optimization problem in a standard CMDP.
+    CMDP is to maximize the expected return of rewards while satisfying the constraint on the expected return of costs:
+    $\max_\pi J(\pi) = \mathbb{E}_{\tau \sim \pi} \left\{\sum^\infty_{t = 0} \gamma^t r_t\right\} \quad \text{s.t. } C(\pi) = \mathbb{E}_{\tau \sim \pi} \left\{\sum^\infty_{t = 0} \gamma^t_c c_t \leq d \right\}$
+}
+\begin{equation}
+    \max_\pi J(\pi) =
+     \mathbb{E}_{\tau \sim \pi} \left\{\sum^\infty_{t = 0} \gamma^t r_t \right\} \quad \text{s.t. } v^\pi_C(s) \leq d, \forall s \in \mathcal{I}_F
+\end{equation}
