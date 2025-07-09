@@ -1,0 +1,95 @@
+% ============================================
+%         Preset 1. Document Type
+% ============================================
+\documentclass{article}
+
+% ============================================
+%         Preset 2. Pre-defined Settings
+% ============================================
+\def\pub{false} % true for publication, false for draft
+\newcommand*{\template}{../template}
+\input{\template/preamble/preamble_article.tex}
+
+% ============================================
+%         Preset 2. University Logo
+% ============================================
+% Insert University logo
+\makeatletter         
+\def\@maketitle{
+    \raggedleft
+    \includegraphics[height = 8mm]{\template/figs/logo_MIC.png}
+    \includegraphics[height = 8mm]{\template/figs/logo_KAIST_simple.png}
+    \\[5ex]
+    \begin{center}
+        {\Huge \bfseries \@title }\\[4ex] 
+        {\Large  \@author}\\[4ex] 
+        \@date\\[8ex]
+    \end{center}
+}
+\makeatother
+
+% ========================================
+%         TITLE and AUTHORS
+% ========================================
+\title{
+    Example Title of Document
+}
+
+\author{
+    Myeongseok Ryu
+    \thanks{
+        Myeongseok Ryu and Kyunghwan Choi are with the Cho Chun Shik Graduate School of Mobility, Korean Advanced Institute of Science and Technology (KAIST), Daejeon 34051, Korea (e-mail: dding\_98@kaist.ac.kr and kh.choi@kaist.ac.kr)
+        }%
+    ,
+    Kyunghwan Choi
+    \footnotemark[1]
+}
+
+\date{
+    % 20\textsuperscript{th} March 2025
+    \today
+    \\
+    Version 0.0
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    Who am I?
+\end{abstract}
+
+\tableofcontents
+
+% ========================================
+%         INTRODUCTION
+% ========================================
+\input{chapters/introduction.tex}
+
+Cite like \cite{Khalil:2002aa}.
+
+% ========================================
+%         SECTION
+% ========================================
+\input{chapters/section.tex}
+
+% ========================================
+%         Conclusion
+% ========================================
+\input{chapters/conclusion.tex}
+
+% ========================================
+%         Appendix
+% ========================================
+\begin{appendices}
+
+\end{appendices}
+
+% ========================================
+%         Bibliography
+% ========================================
+\bibliographystyle{IEEEtran}
+\bibliography{\template/refs}
+
+\end{document}
